@@ -33,7 +33,7 @@ class TestDisplay4(location: Location, normalVector: Vector): SkyFXSimpleDisplay
                 label = label(Component.text(0).color { 0x009900 }) {
                     option.height = 1.0
 
-                    compo.floatingLevel = 0.1
+                    compo.localFloatingLevel = 0.1
 
                     compo.scale = Point(3,3)
                     compo.textDisplay.backgroundColor = Color.fromARGB(0x00000000)

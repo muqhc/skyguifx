@@ -6,6 +6,7 @@ import io.github.muqhc.skyguifx.layout.SkyLayoutManager
 import io.github.muqhc.skyguifx.layout.SkyLayoutOption
 import net.kyori.adventure.text.Component
 import org.bukkit.block.data.BlockData
+import org.bukkit.inventory.ItemStack
 
 fun <C:SkyContainer<OO,L>,CC:SkyFXComponent,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.component(
     component: CC,
@@ -39,6 +40,15 @@ fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutMan
     option: OO = this.compo.layoutManager.defaultLayoutOption.clone() as OO,
     configure: ComponentConfigureScope<SkyButton,OO>.() -> Unit = {}
 ): SkyButton {
+    return component(component,option,configure)
+}
+
+fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.itemBoard(
+    itemStack: ItemStack? = null,
+    component: SkyItemBoard = SkyItemBoard(itemStack,this.display),
+    option: OO = this.compo.layoutManager.defaultLayoutOption.clone() as OO,
+    configure: ComponentConfigureScope<SkyItemBoard,OO>.() -> Unit = {}
+): SkyItemBoard {
     return component(component,option,configure)
 }
 

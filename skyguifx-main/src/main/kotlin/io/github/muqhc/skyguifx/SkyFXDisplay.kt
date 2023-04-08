@@ -58,7 +58,11 @@ interface SkyFXDisplay: SkyDisplay {
         if (hitDistanceLimit != null)
             if (event.traceResult.hitLocation.distance(location) > hitDistanceLimit!!)
                 return
-        if (event.traceResult.isFaceToFace) components.forEach {
+        if (!event.traceResult.isFaceToFace) return
+        if (event.player.location.toVector()
+            .subtract(event.traceResult.hitLocation.toVector()).angle(normalVector) > (PI/2))
+            return
+        components.forEach {
             if (it.isPointInReversed(event.traceResult.hitLocationOnDisplay)) {
                 it.click(event)
             }

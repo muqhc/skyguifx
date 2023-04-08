@@ -8,7 +8,6 @@ import io.github.muqhc.skyguifx.dsl.*
 import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
 import io.github.muqhc.skyguifx.util.IntPoint
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Material
@@ -41,7 +40,7 @@ class TestDisplay3(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         ) {
                             option.height = 0.3
 
-                            compo.floatingLevel = 0.1
+                            compo.localFloatingLevel = 0.1
 
                             compo.scale = Point(3,3)
                             compo.textDisplay.backgroundColor = Color.fromARGB(0,0,0,0)

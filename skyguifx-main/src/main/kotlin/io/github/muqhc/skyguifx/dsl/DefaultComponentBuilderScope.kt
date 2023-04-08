@@ -20,14 +20,18 @@ open class ContainerConfigureScope<
             compo.layoutManager.defaultLayoutOption = value
         }
 
+    var additionalFloatingLevel: Double = 0.03
+
     fun <CC:SkyFXComponent> add(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ComponentConfigureScope<CC,OO>.() -> Unit): CC {
         ComponentConfigureScope(component,option,display).configure()
         compo.add(component, option)
+        component.localFloatingLevel += additionalFloatingLevel
         return component
     }
     fun <CC:SkyContainer<OOO,LL>,OOO:SkyLayoutOption,LL:SkyLayoutManager<OOO,LL>> addContainer(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ContainerConfigureScope<CC,OO,OOO,LL>.() -> Unit): CC {
         ContainerConfigureScope(component,option,display).configure()
         compo.add(component, option)
+        component.localFloatingLevel += additionalFloatingLevel
         return component
     }
 

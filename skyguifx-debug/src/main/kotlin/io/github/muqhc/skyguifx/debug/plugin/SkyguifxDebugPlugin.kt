@@ -115,6 +115,16 @@ class SkyguifxDebugPlugin: JavaPlugin() {
                     }
                 }
 
+                then("test5") {
+                    requires { isPlayer && isOp }
+                    executes {
+                        myGuiManager.displays +=
+                            TestDisplay5(
+                                player.location.clone(), player.location.direction.normalize().multiply(-1)
+                            )
+                    }
+                }
+
                 then("test_heavy") {
                     requires { isPlayer && isOp }
                     executes {

@@ -11,8 +11,6 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     var layoutManager: L
     var components: MutableList<SkyContained<O>>
 
-    var childrenFloatingLevel: Double
-
     fun add(component: SkyFXComponent, option: O = layoutManager.defaultLayoutOption): O {
         val contained = SkyContained(component, option)
         layoutManager.onPreAdd(this, contained)
@@ -26,9 +24,9 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     override fun render(display: SkyDisplay) {
         layoutManager.manage(this)
         super.render(display)
-        display.location.add(display.normalVector.clone().multiply(childrenFloatingLevel))
-        components.forEach { it.component.render(display) }
-        display.location.subtract(display.normalVector.clone().multiply(childrenFloatingLevel))
+        components.forEach {
+            it.component.render(display)
+        }
     }
 
     override fun remove() {

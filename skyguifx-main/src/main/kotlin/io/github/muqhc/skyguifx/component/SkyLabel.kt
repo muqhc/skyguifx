@@ -13,10 +13,10 @@ import org.joml.AxisAngle4f
 import org.joml.Vector3f
 
 open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
-    override var parent: SkyComponent? = null
+    override var parent: SkyFXComponent? = null
     override var localPoint1: Point = Point(0,0)
     override var localPoint2: Point = Point(0,0)
-    override var floatingLevel: Double = 0.0
+    override var localFloatingLevel: Double = 0.0
 
     override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
@@ -54,7 +54,7 @@ open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
             )
             val loc = display.getLocationOnSpace(
                 Point((point1.x + point2.x) / 2, point2.y)
-            ).toLocation(display.location.world)
+            ).toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
             loc.direction = display.normalVector
             textDisplay.teleport(loc)
         }

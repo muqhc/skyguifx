@@ -11,10 +11,13 @@ interface SkyFXComponent: SkyComponent {
     override val point1: Point get() = parent?.let { it.point1 + localPoint1 } ?: localPoint1
     override val point2: Point get() = parent?.let { it.point1 + localPoint2 } ?: localPoint2
 
-    var parent: SkyComponent?
+    var parent: SkyFXComponent?
     var localPoint1: Point
     var localPoint2: Point
-    var floatingLevel: Double
+    var localFloatingLevel: Double
+
+    val floatingLevel: Double
+        get() = parent?.let { it.floatingLevel + localFloatingLevel } ?: localFloatingLevel
 
     val width: Double get() = localPoint2.x - localPoint1.x
     val height: Double get() = localPoint2.y - localPoint1.y
@@ -23,10 +26,8 @@ interface SkyFXComponent: SkyComponent {
     var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit>
 
     override fun render(display: SkyDisplay) {
-        display.location.add(display.normalVector.clone().multiply(floatingLevel))
         renderFx(display)
         onAfterRender.forEach { it(display) }
-        display.location.subtract(display.normalVector.clone().multiply(floatingLevel))
     }
 
     fun renderFx(display: SkyDisplay)

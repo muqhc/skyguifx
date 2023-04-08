@@ -11,6 +11,7 @@ java {
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
 }
 
@@ -26,7 +27,7 @@ subprojects {
 
         compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
 
-        implementation("io.github.muqhc:skygui:0.3.1")
+        implementation("io.github.muqhc:skygui:0.3.2")
     }
 }
 

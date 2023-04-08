@@ -4,15 +4,17 @@ import io.github.muqhc.skygui.SkyDisplay
 import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
-import org.bukkit.block.data.BlockData
-import org.bukkit.entity.BlockDisplay
+import io.github.muqhc.skyguifx.util.div
+import io.github.muqhc.skyguifx.util.plus
 import org.bukkit.entity.EntityType
+import org.bukkit.entity.ItemDisplay
+import org.bukkit.inventory.ItemStack
 import org.bukkit.util.Transformation
 import org.bukkit.util.Vector
 import org.joml.AxisAngle4f
 import org.joml.Vector3f
 
-open class SkyBoard(var blockDisplay: BlockDisplay): SkyFXComponent {
+open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
     override var parent: SkyFXComponent? = null
     override var localPoint1: Point = Point(0,0)
     override var localPoint2: Point = Point(0,0)
@@ -21,9 +23,9 @@ open class SkyBoard(var blockDisplay: BlockDisplay): SkyFXComponent {
     override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
 
-    constructor(blockData: BlockData, display: SkyDisplay): this(
-        (display.location.world.spawnEntity(display.location, EntityType.BLOCK_DISPLAY) as BlockDisplay).apply {
-            block = blockData
+    constructor(itemStack: ItemStack?, display: SkyDisplay): this(
+        (display.location.world.spawnEntity(display.location, EntityType.ITEM_DISPLAY) as ItemDisplay).apply {
+            this.itemStack = itemStack
         }
     )
 
@@ -44,18 +46,18 @@ open class SkyBoard(var blockDisplay: BlockDisplay): SkyFXComponent {
             display_loc_cache = display.location.toVector()
             display_dir_cache = display.normalVector
 
-            blockDisplay.transformation = Transformation(
+            itemDisplay.transformation = Transformation(
                 Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),
                 Vector3f(width.toFloat(), height.toFloat(), 0.0f), AxisAngle4f(0f, 0f, 0f, 0f),
             )
-            val loc = display.getLocationOnSpace(Point(point1.x, point1.y + height))
+            val loc = display.getLocationOnSpace((point1+point2)/2.0)
                 .toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
             loc.direction = display.normalVector
-            blockDisplay.teleport(loc)
+            itemDisplay.teleport(loc)
         }
     }
 
     override fun onRemoved() {
-        blockDisplay.remove()
+        itemDisplay.remove()
     }
 }

@@ -4,4 +4,4 @@ main: ${group}.${packageName}.debug.plugin.${pluginName}DebugPlugin
 api-version: 1.19
 libraries:
   - io.github.monun:kommand-core:3.1.3
-  - io.github.muqhc:skygui:0.3.1
+  - io.github.muqhc:skygui:0.3.2
