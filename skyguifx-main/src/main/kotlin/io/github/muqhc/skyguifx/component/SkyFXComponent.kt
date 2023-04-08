@@ -19,13 +19,22 @@ interface SkyFXComponent: SkyComponent {
     val width: Double get() = localPoint2.x - localPoint1.x
     val height: Double get() = localPoint2.y - localPoint1.y
 
+    var onAfterRender: MutableList<(SkyDisplay)->Unit>
+    var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit>
+
     override fun render(display: SkyDisplay) {
         display.location.add(display.normalVector.clone().multiply(floatingLevel))
         renderFx(display)
+        onAfterRender.forEach { it(display) }
         display.location.subtract(display.normalVector.clone().multiply(floatingLevel))
     }
 
     fun renderFx(display: SkyDisplay)
+
+    override fun click(event: SkyDisplayInteractEvent) {
+        super.click(event)
+        onAfterClicked.forEach { it(event) }
+    }
 
     fun remove() {
         onRemoved()

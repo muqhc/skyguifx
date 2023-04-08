@@ -2,6 +2,7 @@ package io.github.muqhc.skyguifx.component
 
 import io.github.muqhc.skygui.SkyDisplay
 import io.github.muqhc.skygui.component.SkyComponent
+import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
 import org.bukkit.block.data.BlockData
 import org.bukkit.entity.BlockDisplay
@@ -16,15 +17,14 @@ open class SkyBoard(var blockDisplay: BlockDisplay): SkyFXComponent {
     override var localPoint2: Point = Point(0,0)
     override var floatingLevel: Double = 0.0
 
+    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
+    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
+
     constructor(blockData: BlockData, display: SkyDisplay): this(
         (display.location.world.spawnEntity(display.location, EntityType.BLOCK_DISPLAY) as BlockDisplay).apply {
             block = blockData
         }
     )
-
-    override fun render(display: SkyDisplay) {
-        super.render(display)
-    }
 
     override fun renderFx(display: SkyDisplay) {
         blockDisplay.transformation = Transformation(

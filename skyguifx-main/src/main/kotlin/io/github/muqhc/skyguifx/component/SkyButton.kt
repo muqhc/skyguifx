@@ -11,6 +11,9 @@ open class SkyButton(var onClicked: (SkyDisplayInteractEvent) -> Unit): SkyFXCom
     override var localPoint2: Point = Point(0,0)
     override var floatingLevel: Double = 0.0
 
+    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
+    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
+
     override fun renderFx(display: SkyDisplay) {}
 
     override fun onClicked(event: SkyDisplayInteractEvent) {

@@ -2,6 +2,7 @@ package io.github.muqhc.skyguifx.component
 
 import io.github.muqhc.skygui.SkyDisplay
 import io.github.muqhc.skygui.component.SkyComponent
+import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.EntityType
@@ -15,6 +16,9 @@ open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
     override var localPoint1: Point = Point(0,0)
     override var localPoint2: Point = Point(0,0)
     override var floatingLevel: Double = 0.0
+
+    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
+    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
 
     constructor(text: Component, display: SkyDisplay): this(
         (display.location.world.spawnEntity(display.location, EntityType.TEXT_DISPLAY) as TextDisplay).apply {
