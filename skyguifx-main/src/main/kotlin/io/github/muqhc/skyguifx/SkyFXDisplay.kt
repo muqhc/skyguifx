@@ -4,9 +4,11 @@ import io.github.muqhc.skygui.SkyDisplay
 import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
+import io.github.muqhc.skygui.util.SkyRayTraceResult
 import io.github.muqhc.skygui.util.Vector2D
 import io.github.muqhc.skyguifx.component.SkyFXComponent
 import io.github.muqhc.skyguifx.util.isPointInReversed
+import org.bukkit.Location
 import org.bukkit.util.Vector
 import kotlin.math.PI
 import kotlin.math.cos
@@ -63,5 +65,23 @@ interface SkyFXDisplay: SkyDisplay {
         }
     }
 
+    override fun rayTrace(posX: Double, posY: Double, posZ: Double, dirX: Double, dirY: Double, dirZ: Double): SkyRayTraceResult {
+        return object : SkyRayTraceResult {
+            override val hitLocation: Location by lazy {
+                Location(this@SkyFXDisplay.location.world, 0.0, 0.0, 0.0).apply {
+                    val incl =
+                        normalVector.clone().dot(location.toVector().subtract(Vector(posX, posY, posZ))) /
+                            normalVector.clone().dot(Vector(dirX, dirY, dirZ))
 
+                    val result = Vector(posX, posY, posZ).add(Vector(dirX, dirY, dirZ).multiply(incl))
+
+                    x = result.x
+                    y = result.y
+                    z = result.z
+                }
+            }
+            override val hitLocationOnDisplay: Point by lazy { getLocationOnDisplay(hitLocation.toVector()) }
+            override val isFaceToFace: Boolean = normalVector.angle(Vector(dirX, dirY, dirZ)) > (PI/2)
+        }
+    }
 }
