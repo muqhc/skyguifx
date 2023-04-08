@@ -16,6 +16,10 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.util.Vector
 
+/**
+ * <h2>My Little Inventory</h2>
+ * A small inventory that can store items.
+ */
 class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint = IntPoint(4,4)) : SkyFXSimpleDisplay(location, normalVector) {
     var itemBoardField: MutableList<MutableList<SkyItemBoard?>> =
         MutableList(size.x) { MutableList(size.y) { null } }

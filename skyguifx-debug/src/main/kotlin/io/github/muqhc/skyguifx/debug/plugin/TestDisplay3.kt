@@ -13,6 +13,10 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.util.Vector
 
+/**
+ * <h2>Two-Button Counter</h2>
+ * A counter that can increase or decrease number by touch the buttons.
+ */
 class TestDisplay3(location: Location, normalVector: Vector) : SkyFXSimpleDisplay(location,normalVector) {
 
     init {

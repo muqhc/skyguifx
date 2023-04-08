@@ -14,6 +14,10 @@ import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.util.Vector
 
+/**
+ * <h2>3x3 Lights Out</h2>
+ * A 3x3 Lights Out game pad.
+ */
 class TestDisplay2(
     location: Location, normalVector: Vector, windowSize: Point, windowPos: Point = Point(0,0),
     val gameSize: IntPoint = IntPoint(3,3)

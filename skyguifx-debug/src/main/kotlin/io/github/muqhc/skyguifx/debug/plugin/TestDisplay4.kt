@@ -12,6 +12,10 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.util.Vector
 
+/**
+ * <h2>Simple Counter</h2>
+ * A counter that can increase number by touch itself.
+ */
 class TestDisplay4(location: Location, normalVector: Vector): SkyFXSimpleDisplay(location, normalVector) {
     init {
         add(app())
