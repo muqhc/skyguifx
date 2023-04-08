@@ -10,12 +10,14 @@ import io.github.muqhc.skyguifx.util.isPointInReversed
 import org.bukkit.util.Vector
 import kotlin.math.PI
 import kotlin.math.cos
-import kotlin.math.sign
 import kotlin.math.sin
 
 interface SkyFXDisplay: SkyDisplay {
     override val displayXAxis: Vector
         get() = super.displayXAxis.multiply(-1)
+
+    var hitDistanceLimit: Double?
+    var interactDistanceLimit: Double?
 
     fun clear() {
         components.forEach { if (it is SkyFXComponent) it.remove() }
@@ -48,6 +50,12 @@ interface SkyFXDisplay: SkyDisplay {
     }
 
     override fun click(event: SkyDisplayInteractEvent) {
+        if (interactDistanceLimit != null)
+            if (event.player.location.distance(location) > interactDistanceLimit!!)
+                return
+        if (hitDistanceLimit != null)
+            if (event.traceResult.hitLocation.distance(location) > hitDistanceLimit!!)
+                return
         if (event.traceResult.isFaceToFace) components.forEach {
             if (it.isPointInReversed(event.traceResult.hitLocationOnDisplay)) {
                 it.click(event)

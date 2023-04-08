@@ -10,6 +10,9 @@ import org.bukkit.util.Vector
 open class SkyFXSimpleDisplay(override val location: Location, override val normalVector: Vector) : SkyFXDisplay {
     override val components: MutableList<SkyComponent> = mutableListOf()
 
+    override var hitDistanceLimit: Double? = null
+    override var interactDistanceLimit: Double? = null
+
     fun add(compo: SkyFXComponent, point1: Point, point2: Point) {
         compo.localPoint1 = point1
         compo.localPoint2 = point2
