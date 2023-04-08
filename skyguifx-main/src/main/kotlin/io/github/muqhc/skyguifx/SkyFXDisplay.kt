@@ -55,10 +55,10 @@ interface SkyFXDisplay: SkyDisplay {
         if (interactDistanceLimit != null)
             if (event.player.location.distance(location) > interactDistanceLimit!!)
                 return
+        if (!event.traceResult.isFaceToFace) return
         if (hitDistanceLimit != null)
             if (event.traceResult.hitLocation.distance(location) > hitDistanceLimit!!)
                 return
-        if (!event.traceResult.isFaceToFace) return
         if (event.player.location.toVector()
             .subtract(event.traceResult.hitLocation.toVector()).angle(normalVector) > (PI/2))
             return
