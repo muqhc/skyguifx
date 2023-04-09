@@ -32,7 +32,6 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
             board(Material.LIGHT_GRAY_CONCRETE.createBlockData())
             simpleGridField(size.y,size.x) {
                 repeat(size.x) { x -> repeat(size.y) { y ->
-                    lateinit var itemBoard: SkyItemBoard
                     paddingBox {
                         defaultOption.padding = 0.04
 
@@ -41,7 +40,7 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
 
                         board(Material.GRAY_CONCRETE.createBlockData())
 
-                        itemBoard = itemBoard(ItemStack(Material.AIR,0)) {
+                        val itemBoard = itemBoard(ItemStack(Material.AIR,0)) {
                             compo.localFloatingLevel = 0.03
                             compo.itemDisplay.itemDisplayTransform = ItemDisplay.ItemDisplayTransform.GUI
                         }
