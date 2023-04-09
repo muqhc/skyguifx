@@ -8,6 +8,9 @@ import io.github.muqhc.skyguifx.layout.SkyLayoutManager
 import io.github.muqhc.skyguifx.layout.SkyLayoutOption
 import org.bukkit.block.data.BlockData
 
+/**
+ * A component container to group components
+ */
 open class SkyPanel<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>(override var layoutManager: L) : SkyContainer<O,L> {
     override var components: MutableList<SkyContained<O>> = mutableListOf()
     override var parent: SkyFXComponent? = null

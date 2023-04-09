@@ -53,13 +53,13 @@ interface SkyFXDisplay: SkyDisplay {
 
     override fun click(event: SkyDisplayInteractEvent) {
         if (interactDistanceLimit != null)
-            if (event.player.location.distance(location) > interactDistanceLimit!!)
+            if (event.player.eyeLocation.distance(location) > interactDistanceLimit!!)
                 return
         if (!event.traceResult.isFaceToFace) return
         if (hitDistanceLimit != null)
             if (event.traceResult.hitLocation.distance(location) > hitDistanceLimit!!)
                 return
-        if (event.player.location.toVector()
+        if (event.player.eyeLocation.toVector()
             .subtract(event.traceResult.hitLocation.toVector()).angle(normalVector) > (PI/2))
             return
         components.forEach {

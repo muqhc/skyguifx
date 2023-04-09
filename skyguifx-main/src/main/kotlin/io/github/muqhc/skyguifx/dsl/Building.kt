@@ -19,12 +19,14 @@ class SkyGuiBuildingInstance<C:SkyContainer<O,L>,O:SkyLayoutOption,L:SkyLayoutMa
     }
 }
 
+/** make building instance to configure SkyContainer such as SkyPanel. */
 fun <C:SkyContainer<O,L>,O:SkyLayoutOption,L:SkyLayoutManager<O,L>> C.skygui(
     init: ContainerConfigureScope<C,SkyLayoutOption,O,L>.() -> Unit
 ): SkyGuiBuildingInstance<C,O,L> {
     return SkyGuiBuildingInstance(this,init)
 }
 
+/** straightly configure SkyContainer such as SkyPanel. */
 fun <C:SkyContainer<O,L>,O:SkyLayoutOption,L:SkyLayoutManager<O,L>> C.skyguiBuild(
     display: SkyDisplay,
     init: ContainerConfigureScope<C,SkyLayoutOption,O,L>.() -> Unit

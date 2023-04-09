@@ -14,6 +14,9 @@ import org.bukkit.util.Vector
 import org.joml.AxisAngle4f
 import org.joml.Vector3f
 
+/**
+ * A gui component based on item_display
+ */
 open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
     override var parent: SkyFXComponent? = null
     override var localPoint1: Point = Point(0,0)

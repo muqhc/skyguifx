@@ -5,6 +5,9 @@ import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
 
+/**
+ * A button that can listen player interaction(click)
+ */
 open class SkyButton(var onClicked: (SkyDisplayInteractEvent) -> Unit): SkyFXComponent {
     override var parent: SkyFXComponent? = null
     override var localPoint1: Point = Point(0,0)

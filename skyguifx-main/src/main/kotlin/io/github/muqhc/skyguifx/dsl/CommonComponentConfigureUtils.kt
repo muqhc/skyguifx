@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.block.data.BlockData
 import org.bukkit.inventory.ItemStack
 
+/** add component */
 fun <C:SkyContainer<OO,L>,CC:SkyFXComponent,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.component(
     component: CC,
     option: OO = this.compo.layoutManager.defaultLayoutOption.clone() as OO,
@@ -16,6 +17,7 @@ fun <C:SkyContainer<OO,L>,CC:SkyFXComponent,O:SkyLayoutOption,OO:SkyLayoutOption
     return add(component,option,configure)
 }
 
+/** add SkyLabel */
 fun <C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.label(
     text: Component,
     component: SkyLabel = SkyLabel(text,this.display),
@@ -25,6 +27,7 @@ fun <C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManage
     return component(component,option,configure)
 }
 
+/** add SkyBoard */
 fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.board(
     blockData: BlockData,
     component: SkyBoard = SkyBoard(blockData,this.display),
@@ -34,6 +37,7 @@ fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutMan
     return component(component,option,configure)
 }
 
+/** add SkyButton */
 fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.button(
     onClicked: (SkyDisplayInteractEvent) -> Unit = {},
     component: SkyButton = SkyButton(onClicked),
@@ -43,6 +47,7 @@ fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutMan
     return component(component,option,configure)
 }
 
+/** add SkyItemBoard */
 fun <C: SkyContainer<OO,L>,O: SkyLayoutOption,OO: SkyLayoutOption,L:SkyLayoutManager<OO,L>> ContainerConfigureScope<C,O,OO,L>.itemBoard(
     itemStack: ItemStack? = null,
     component: SkyItemBoard = SkyItemBoard(itemStack,this.display),

@@ -12,6 +12,9 @@ import org.bukkit.util.Vector
 import org.joml.AxisAngle4f
 import org.joml.Vector3f
 
+/**
+ * A gui component based on text_display
+ */
 open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
     override var parent: SkyFXComponent? = null
     override var localPoint1: Point = Point(0,0)
