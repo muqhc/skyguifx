@@ -21,9 +21,6 @@ import org.bukkit.util.Vector
  * A small inventory that can store items.
  */
 class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint = IntPoint(4,4)) : SkyFXSimpleDisplay(location, normalVector) {
-    var itemBoardField: MutableList<MutableList<SkyItemBoard?>> =
-        MutableList(size.x) { MutableList(size.y) { null } }
-
     init {
         add(app())
     }
@@ -34,7 +31,7 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
 
             board(Material.LIGHT_GRAY_CONCRETE.createBlockData())
             simpleGridField(size.y,size.x) {
-                itemBoardField.mapIndexed { x, l -> l.mapIndexed { y, itemStack ->
+                repeat(size.x) { x -> repeat(size.y) { y ->
                     lateinit var itemBoard: SkyItemBoard
                     paddingBox {
                         defaultOption.padding = 0.04
@@ -60,7 +57,6 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
                             it.originEvent.isCancelled = true
                         })
                     }
-                    itemBoard
                 } }
             }
         }
