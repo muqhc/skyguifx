@@ -5,6 +5,15 @@ import io.github.muqhc.skygui.component.SquareParticleRenderComponent
 import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
 import io.github.muqhc.skyguifx.component.SkyBoard
+import io.github.muqhc.skyguifx.component.SkyPanel
+import io.github.muqhc.skyguifx.dsl.aligningBox
+import io.github.muqhc.skyguifx.dsl.board
+import io.github.muqhc.skyguifx.dsl.label
+import io.github.muqhc.skyguifx.dsl.skyguiBuild
+import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
+import io.github.muqhc.skyguifx.util.Alignment
+import net.kyori.adventure.text.Component
+import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -14,22 +23,21 @@ class TestDisplay1(location: Location, normalVector: Vector) : SkyFXSimpleDispla
     override val components: MutableList<SkyComponent> = mutableListOf()
 
     init {
-        add(object : SquareParticleRenderComponent {
-            override val point1: Point = Point(0,0)
-            override val point2: Point = Point(3,2)
-            override val renderMaterial: Particle = Particle.WAX_ON
-        })
-
-        add(SkyBoard(Material.WHITE_CONCRETE.createBlockData(),this).apply {
-            localPoint1 = Point(1,1)
-            localPoint2 = Point(4,3)
-        })
+        add(app())
     }
 
-    override fun render() {
-        super.render()
+    fun app() =
+        SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
 
-        location.world.spawnParticle(Particle.WAX_OFF,location.clone().add(displayXAxis),1,0.0,0.0,0.0,0.0)
-        location.world.spawnParticle(Particle.WAX_OFF,location.clone().add(displayYAxis),1,0.0,0.0,0.0,0.0)
-    }
+            board(Material.DARK_OAK_PLANKS.createBlockData())
+
+            aligningBox {
+                label(Component.text("hello world!")) {
+                    option.alignment = Alignment.BottomCenter
+
+                    compo.textDisplay.backgroundColor = Color.fromARGB(0)
+                }
+            }
+
+        }
 }
