@@ -20,24 +20,22 @@ import org.bukkit.Particle
 import org.bukkit.util.Vector
 
 class TestDisplay1(location: Location, normalVector: Vector) : SkyFXSimpleDisplay(location, normalVector) {
-    override val components: MutableList<SkyComponent> = mutableListOf()
-
     init {
         add(app())
     }
 
     fun app() =
         SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
+            compo.localPoint2 = Point(2.7,0.7)
 
-            board(Material.DARK_OAK_PLANKS.createBlockData())
-
+            board(Material.BIRCH_PLANKS.createBlockData())
             aligningBox {
-                label(Component.text("hello world!")) {
+                label(Component.text("hello world!").color { 0x603B2A }) {
                     option.alignment = Alignment.BottomCenter
 
                     compo.textDisplay.backgroundColor = Color.fromARGB(0)
+                    compo.scale = Point(2.2,2.3)
                 }
             }
-
         }
 }
