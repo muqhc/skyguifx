@@ -58,7 +58,7 @@ publishing {
 
             pom {
                 name.set(rootProject.name)
-                description.set("gui on air for bukkit server")
+                description.set("minecraft hovering gui framework based on skygui for paper")
                 url.set("https://github.com/muqhc/${rootProject.name}")
 
                 licenses {
