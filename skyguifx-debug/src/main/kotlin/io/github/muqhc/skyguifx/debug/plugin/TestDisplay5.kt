@@ -20,14 +20,14 @@ import org.bukkit.util.Vector
  * <h2>My Little Inventory</h2>
  * A small inventory that can store items.
  */
-class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint = IntPoint(4,4)) : SkyFXSimpleDisplay(location, normalVector) {
+class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint = IntPoint(9,4)) : SkyFXSimpleDisplay(location, normalVector) {
     init {
         add(app())
     }
 
     fun app() =
         SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
-            compo.localPoint2 = Point(size.x,size.y)*0.7
+            compo.localPoint2 = Point(size.x,size.y)*0.4
 
             board(Material.LIGHT_GRAY_CONCRETE.createBlockData())
             simpleGridField(size.y,size.x) {
