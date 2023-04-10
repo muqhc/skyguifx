@@ -6,10 +6,7 @@ import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
 import io.github.muqhc.skyguifx.component.SkyBoard
 import io.github.muqhc.skyguifx.component.SkyPanel
-import io.github.muqhc.skyguifx.dsl.aligningBox
-import io.github.muqhc.skyguifx.dsl.board
-import io.github.muqhc.skyguifx.dsl.label
-import io.github.muqhc.skyguifx.dsl.skyguiBuild
+import io.github.muqhc.skyguifx.dsl.*
 import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
 import io.github.muqhc.skyguifx.util.Alignment
 import net.kyori.adventure.text.Component
@@ -37,5 +34,8 @@ class TestDisplay1(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                     compo.scale = Point(2.2,2.3)
                 }
             }
+            button(onClicked = { event ->
+                event.player.sendMessage("hello world")
+            })
         }
 }
