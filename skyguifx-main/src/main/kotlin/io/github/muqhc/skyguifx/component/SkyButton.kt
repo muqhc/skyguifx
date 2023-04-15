@@ -16,6 +16,10 @@ open class SkyButton(var onClicked: (SkyDisplayInteractEvent) -> Unit): SkyFXCom
 
     override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
+    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
+    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
+
+    override var isDisabled: Boolean = false
 
     override fun renderFx(display: SkyDisplay) {}
 

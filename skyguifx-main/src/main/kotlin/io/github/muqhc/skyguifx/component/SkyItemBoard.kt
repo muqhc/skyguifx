@@ -25,6 +25,10 @@ open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
 
     override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
+    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
+    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
+
+    override var isDisabled: Boolean = false
 
     constructor(itemStack: ItemStack?, display: SkyDisplay): this(
         (display.location.world.spawnEntity(display.location, EntityType.ITEM_DISPLAY) as ItemDisplay).apply {
@@ -37,27 +41,28 @@ open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
     private var display_loc_cache: Vector? = null
     private var display_dir_cache: Vector? = null
 
-    override fun renderFx(display: SkyDisplay) {
-        if (
-            point1_cache != point1 ||
-            point2_cache != point2 ||
-            display_loc_cache != display.location.toVector() ||
-            display_dir_cache != display.normalVector
-        ) {
-            point1_cache = point1
-            point2_cache = point2
-            display_loc_cache = display.location.toVector()
-            display_dir_cache = display.normalVector
+    var isCaching = true
 
-            itemDisplay.transformation = Transformation(
-                Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),
-                Vector3f(width.toFloat(), height.toFloat(), 0.0f), AxisAngle4f(0f, 0f, 0f, 0f),
-            )
-            val loc = display.getLocationOnSpace((point1+point2)/2.0)
-                .toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
-            loc.direction = display.normalVector
-            itemDisplay.teleport(loc)
-        }
+    override fun renderFx(display: SkyDisplay) {
+        if (isCaching &&
+            point1_cache == point1 &&
+            point2_cache == point2 &&
+            display_loc_cache == display.location.toVector() &&
+            display_dir_cache == display.normalVector
+        ) return
+        point1_cache = point1
+        point2_cache = point2
+        display_loc_cache = display.location.toVector()
+        display_dir_cache = display.normalVector
+
+        itemDisplay.transformation = Transformation(
+            Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),
+            Vector3f(width.toFloat(), height.toFloat(), 0.0f), AxisAngle4f(0f, 0f, 0f, 0f),
+        )
+        val loc = display.getLocationOnSpace((point1+point2)/2.0)
+            .toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
+        loc.direction = display.normalVector
+        itemDisplay.teleport(loc)
     }
 
     override fun onRemoved() {

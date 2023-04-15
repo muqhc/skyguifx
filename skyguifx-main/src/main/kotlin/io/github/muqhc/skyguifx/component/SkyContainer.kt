@@ -11,7 +11,7 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     var layoutManager: L
     var components: MutableList<SkyContained<O>>
 
-    fun add(component: SkyFXComponent, option: O = layoutManager.defaultLayoutOption): O {
+    fun add(component: SkyFXComponent, option: O = layoutManager.defaultLayoutOption.clone() as O): O {
         val contained = SkyContained(component, option)
         layoutManager.onPreAdd(this, contained)
         component.parent = this
@@ -36,6 +36,7 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     }
 
     override fun click(event: SkyDisplayInteractEvent) {
+        if (isDisabled) return
         super.click(event)
         components.forEach {  (compo,_) ->
             if (compo.isPointInReversed(event.traceResult.hitLocationOnDisplay)) {

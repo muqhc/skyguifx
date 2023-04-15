@@ -23,6 +23,10 @@ open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
 
     override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
+    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
+    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
+
+    override var isDisabled: Boolean = false
 
     constructor(text: Component, display: SkyDisplay): this(
         (display.location.world.spawnEntity(display.location, EntityType.TEXT_DISPLAY) as TextDisplay).apply {
@@ -34,33 +38,37 @@ open class SkyLabel(var textDisplay: TextDisplay): SkyFXComponent {
 
     var scale: Point = Point(1,1)
 
+    private var scale_cache: Point? = null
     private var point1_cache: Point? = null
     private var point2_cache: Point? = null
     private var display_loc_cache: Vector? = null
     private var display_dir_cache: Vector? = null
 
-    override fun renderFx(display: SkyDisplay) {
-        if (
-            point1_cache != point1 ||
-            point2_cache != point2 ||
-            display_loc_cache != display.location.toVector() ||
-            display_dir_cache != display.normalVector
-        ) {
-            point1_cache = point1
-            point2_cache = point2
-            display_loc_cache = display.location.toVector()
-            display_dir_cache = display.normalVector
+    var isCaching = true
 
-            textDisplay.transformation = Transformation(
-                Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),
-                Vector3f(scale.x.toFloat(), scale.y.toFloat(), 0.0f), AxisAngle4f(0f, 0f, 0f, 0f),
-            )
-            val loc = display.getLocationOnSpace(
-                Point((point1.x + point2.x) / 2, point2.y)
-            ).toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
-            loc.direction = display.normalVector
-            textDisplay.teleport(loc)
-        }
+    override fun renderFx(display: SkyDisplay) {
+        if (isCaching &&
+            scale_cache == scale &&
+            point1_cache == point1 &&
+            point2_cache == point2 &&
+            display_loc_cache == display.location.toVector() &&
+            display_dir_cache == display.normalVector
+        ) return
+        scale_cache = scale
+        point1_cache = point1
+        point2_cache = point2
+        display_loc_cache = display.location.toVector()
+        display_dir_cache = display.normalVector
+
+        textDisplay.transformation = Transformation(
+            Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),
+            Vector3f(scale.x.toFloat(), scale.y.toFloat(), 0.0f), AxisAngle4f(0f, 0f, 0f, 0f),
+        )
+        val loc = display.getLocationOnSpace(
+            Point((point1.x + point2.x) / 2, point2.y)
+        ).toLocation(display.location.world).add(display.normalVector.clone().multiply(floatingLevel))
+        loc.direction = display.normalVector
+        textDisplay.teleport(loc)
     }
 
     override fun onRemoved() {
