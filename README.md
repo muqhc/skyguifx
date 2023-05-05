@@ -16,8 +16,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation("io.github.muqhc:skygui:0.3.2")
-    implementation("io.github.muqhc:skyguifx:0.1.2")
+    implementation("io.github.muqhc:skyguifx:0.1.3")
 }
 ```
 
