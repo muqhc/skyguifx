@@ -29,7 +29,9 @@ open class ContainerConfigureScope<
         return component
     }
     fun <CC:SkyContainer<OOO,LL>,OOO:SkyLayoutOption,LL:SkyLayoutManager<OOO,LL>> addContainer(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ContainerConfigureScope<CC,OO,OOO,LL>.() -> Unit): CC {
-        ContainerConfigureScope(component,option,display).configure()
+        ContainerConfigureScope(component,option,display)
+            .also { it.additionalFloatingLevel = additionalFloatingLevel }
+            .configure()
         compo.add(component, option)
         component.localFloatingLevel += additionalFloatingLevel
         return component
