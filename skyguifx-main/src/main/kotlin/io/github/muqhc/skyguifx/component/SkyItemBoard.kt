@@ -44,16 +44,17 @@ open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
     var isCaching = true
 
     override fun renderFx(display: SkyDisplay) {
-        if (isCaching &&
-            point1_cache == point1 &&
-            point2_cache == point2 &&
-            display_loc_cache == display.location.toVector() &&
-            display_dir_cache == display.normalVector
-        ) return
-        point1_cache = point1
-        point2_cache = point2
-        display_loc_cache = display.location.toVector()
-        display_dir_cache = display.normalVector
+        if (isCaching){
+            if (point1_cache == point1 &&
+                point2_cache == point2 &&
+                display_loc_cache == display.location.toVector() &&
+                display_dir_cache == display.normalVector
+            ) return
+            point1_cache = point1
+            point2_cache = point2
+            display_loc_cache = display.location.toVector()
+            display_dir_cache = display.normalVector
+        }
 
         itemDisplay.transformation = Transformation(
             Vector3f(0f, 0f, 0f), AxisAngle4f(0f, 0f, 0f, 0f),

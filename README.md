@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation("io.github.muqhc:skyguifx:0.1.3")
+    implementation("io.github.muqhc:skyguifx:0.1.4")
 }
 ```
 
@@ -24,7 +24,7 @@ plugin.yml
 
 ```yaml
 libraries:
-  - io.github.muqhc:skyguifx:0.1.3
+  - io.github.muqhc:skyguifx:0.1.4
 ```
 
 
