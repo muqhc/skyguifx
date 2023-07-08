@@ -25,7 +25,7 @@ open class SkyBoard(var blockDisplay: BlockDisplay): SkyFXComponent {
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
     override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
     override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
-
+    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
     override var isDisabled: Boolean = false
 
     constructor(blockData: BlockData, display: SkyDisplay): this(

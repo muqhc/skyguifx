@@ -27,6 +27,7 @@ open class SkyItemBoard(var itemDisplay: ItemDisplay): SkyFXComponent {
     override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
     override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
     override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
+    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
 
     override var isDisabled: Boolean = false
 

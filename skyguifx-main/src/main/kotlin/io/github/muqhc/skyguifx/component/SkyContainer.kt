@@ -35,6 +35,11 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
         super.remove()
     }
 
+    fun remove(component: SkyFXComponent) {
+        component.remove()
+        components.removeIf { it == component }
+    }
+
     override fun click(event: SkyDisplayInteractEvent) {
         if (isDisabled) return
         super.click(event)

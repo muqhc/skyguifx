@@ -7,7 +7,7 @@ val projectMain = project(":${rootProject.name}-main")
 
 dependencies {
     implementation(projectMain)
-    implementation("io.github.monun:kommand-api:3.1.3")
+    implementation("io.github.monun:kommand-api:3.1.6")
 }
 
 val pluginName = rootProject.name.split('-').joinToString("") { it.capitalize() }

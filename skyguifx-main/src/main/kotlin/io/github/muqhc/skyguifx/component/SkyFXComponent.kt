@@ -26,6 +26,7 @@ interface SkyFXComponent: SkyComponent {
     var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit>
     var onAfterDisabled: MutableList<()->Unit>
     var onAfterEnabled: MutableList<()->Unit>
+    var onAfterRemoved: MutableList<()->Unit>
     var isDisabled: Boolean
 
     override fun render(display: SkyDisplay) {
@@ -43,6 +44,7 @@ interface SkyFXComponent: SkyComponent {
 
     fun remove() {
         onRemoved()
+        onAfterRemoved.forEach { it() }
     }
 
     fun onRemoved() {}
