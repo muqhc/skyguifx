@@ -24,7 +24,7 @@ plugin.yml
 
 ```yaml
 libraries:
-  - io.github.muqhc:skyguifx:0.2.0-Alpha
+  - io.github.muqhc:skyguifx:0.2.0
 ```
 
 
