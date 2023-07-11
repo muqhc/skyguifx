@@ -43,11 +43,9 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     override fun click(event: SkyDisplayInteractEvent) {
         if (isDisabled) return
         super.click(event)
-        components.forEach {  (compo,_) ->
-            if (compo.isPointInReversed(event.traceResult.hitLocationOnDisplay)) {
-                compo.click(event)
-            }
-        }
+        components
+            .filter { (compo,_) -> compo.isPointInReversed(event.traceResult.hitLocationOnDisplay) }
+            .map { (compo,_) -> compo.click(event) }
     }
 }
 
