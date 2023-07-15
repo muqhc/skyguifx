@@ -3,7 +3,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.muqhc/skyguifx.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.muqhc%22%20AND%20a:%22skyguifx%22)
 
 
-minecraft hovering gui framework based on skygui for paper
+minecraft hovering gui framework based on [skygui](https://github.com/muqhc/skygui) for paper
 
 ## Usage
 
