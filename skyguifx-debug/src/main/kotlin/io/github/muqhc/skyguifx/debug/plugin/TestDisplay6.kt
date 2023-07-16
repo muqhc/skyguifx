@@ -6,6 +6,7 @@ import io.github.muqhc.skyguifx.component.SkyLabel
 import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.dsl.*
 import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
+import io.github.muqhc.skyguifx.util.Alignment
 import io.github.muqhc.skyguifx.util.IntPoint
 import net.kyori.adventure.text.Component
 import org.bukkit.Color
@@ -55,7 +56,11 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                     lateinit var label: SkyLabel
                     var isOpened = false
                     aligningBox {
-                        label = label(Component.text("open").color { 0x00FF00 })
+                        compo.localFloatingLevel = 0.05
+                        label = label(Component.text("open").color { 0x00FF00 }) {
+                            option.alignment = Alignment.BottomCenter
+                            compo.textDisplay.backgroundColor = Color.fromARGB(0)
+                        }
                     }
 
                     button(onClicked = {
