@@ -47,7 +47,7 @@ class TestDisplay3(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                             compo.localFloatingLevel = 0.1
 
                             compo.scale = Point(3,3)
-                            compo.textDisplay.backgroundColor = Color.fromARGB(0,0,0,0)
+                            compo.entity.backgroundColor = Color.fromARGB(0,0,0,0)
                         }
                     }
                 }
@@ -62,7 +62,7 @@ class TestDisplay3(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                     board(Material.RED_CONCRETE.createBlockData())
                     button(onClicked = {
                         count += -1
-                        label.textDisplay.text(Component.text(count).color { 0x00FF00 })
+                        label.entity.text(Component.text(count).color { 0x00FF00 })
                     })
                 }
 
@@ -76,7 +76,7 @@ class TestDisplay3(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                     board(Material.GREEN_CONCRETE.createBlockData())
                     button(onClicked = {
                         count += 1
-                        label.textDisplay.text(Component.text(count).color { 0x00FF00 })
+                        label.entity.text(Component.text(count).color { 0x00FF00 })
                     })
                 }
 

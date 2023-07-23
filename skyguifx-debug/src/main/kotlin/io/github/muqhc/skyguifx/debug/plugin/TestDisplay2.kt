@@ -5,13 +5,11 @@ import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
 import io.github.muqhc.skyguifx.component.SkyBoard
 import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.dsl.*
-import io.github.muqhc.skyguifx.layout.SkyGridFieldOption
 import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
 import io.github.muqhc.skyguifx.util.IntPoint
 import io.github.muqhc.skyguifx.util.plus
 import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.Particle
 import org.bukkit.util.Vector
 
 /**
@@ -91,7 +89,7 @@ class TestDisplay2(
 
     fun update() {
         boardList.forEachIndexed { x,l -> l.forEachIndexed { y,it ->
-            it.value!!.blockDisplay.block =
+            it.value!!.entity.block =
                 if (booleanField[x][y].value) Material.RED_CONCRETE.createBlockData()
                 else Material.WHITE_CONCRETE.createBlockData()
         } }

@@ -2,6 +2,7 @@ package io.github.muqhc.skyguifx.debug.plugin
 
 import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
+import io.github.muqhc.skyguifx.application.SkyFXComponentAPI
 import io.github.muqhc.skyguifx.component.SkyLabel
 import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.dsl.*
@@ -12,7 +13,6 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.util.Vector
 
 class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDisplay(location, normalVector) {
@@ -37,13 +37,13 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         aligningBox {
                             numLabel = label(Component.text(counter).color { 0x603B2A }) {
                                 compo.localFloatingLevel = 0.1
-                                compo.textDisplay.backgroundColor = Color.fromARGB(0)
+                                compo.entity.backgroundColor = Color.fromARGB(0)
                                 compo.scale = Point(2, 2)
                             }
                         }
                         button(onClicked = {
                             counter += 1
-                            numLabel.textDisplay.text(Component.text(counter).color { 0x603B2A })
+                            numLabel.entity.text(Component.text(counter).color { 0x603B2A })
                         })
                     }
                 }
@@ -59,17 +59,19 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         compo.localFloatingLevel = 0.05
                         label = label(Component.text("open").color { 0x00FF00 }) {
                             option.alignment = Alignment.BottomCenter
-                            compo.textDisplay.backgroundColor = Color.fromARGB(0)
+                            compo.entity.backgroundColor = Color.fromARGB(0)
                         }
                     }
 
+                    lateinit var appAPI: SkyFXComponentAPI
+
                     button(onClicked = {
-                        if (!isOpened) counterApp.show() else counterApp.close()
+                        if (!isOpened) appAPI = counterApp.show() else appAPI.close()
                         if (!isOpened) {
-                            label.textDisplay.text(Component.text("close").color { 0xFF0000 })
+                            label.entity.text(Component.text("close").color { 0xFF0000 })
                         }
                         else {
-                            label.textDisplay.text(Component.text("open").color { 0x00FF00 })
+                            label.entity.text(Component.text("open").color { 0x00FF00 })
                         }
                         isOpened = !isOpened
                     })

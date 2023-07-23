@@ -24,8 +24,7 @@ abstract class SkyApplicationInDsl<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sky
 
     fun show(): SkyFXComponentAPI {
         val compo = entry(this)
-        compoAPI = SkyFXComponentAPI(this, scope.compo, compo)
-        return compoAPI!!
+        return SkyFXComponentAPI(this, scope.compo, compo)
     }
 }
 
