@@ -1,7 +1,6 @@
 package io.github.muqhc.skyguifx.component
 
 import io.github.muqhc.skygui.SkyDisplay
-import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.util.LazyMutable
@@ -9,7 +8,6 @@ import io.github.muqhc.skyguifx.util.div
 import io.github.muqhc.skyguifx.util.plus
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.ItemDisplay
-import org.bukkit.entity.TextDisplay
 import org.bukkit.inventory.ItemStack
 import org.bukkit.util.Transformation
 import org.bukkit.util.Vector
@@ -20,18 +18,6 @@ import org.joml.Vector3f
  * A gui component based on item_display
  */
 open class SkyItemBoard: SkyEntityComponent<ItemDisplay,SkyItemBoard.ItemBoardOption> {
-    override var parent: SkyFXComponent? = null
-    override var localPoint1: Point = Point(0,0)
-    override var localPoint2: Point = Point(0,0)
-    override var localFloatingLevel: Double = 0.0
-
-    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
-    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
-    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
-
-    override var isDisabled: Boolean = false
 
     class ItemBoardOption(val itemStack: ItemStack?): EntityOption
 
@@ -39,7 +25,7 @@ open class SkyItemBoard: SkyEntityComponent<ItemDisplay,SkyItemBoard.ItemBoardOp
         prepare(ItemBoardOption(itemStack),display)
     }
 
-    override fun prepare(option: ItemBoardOption, display: SkyDisplay) {
+    final override fun onPrepare(option: ItemBoardOption, display: SkyDisplay) {
         entityLazy = LazyMutable {
             (display.location.world.spawnEntity(display.location, EntityType.ITEM_DISPLAY) as ItemDisplay).apply {
                 this.itemStack = option.itemStack

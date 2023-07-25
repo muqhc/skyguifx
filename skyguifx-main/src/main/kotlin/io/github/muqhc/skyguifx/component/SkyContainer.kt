@@ -1,6 +1,7 @@
 package io.github.muqhc.skyguifx.component
 
 import io.github.muqhc.skygui.SkyDisplay
+import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.event.SkyDisplayInteractEvent
 import io.github.muqhc.skyguifx.layout.SkyLayoutManager
 import io.github.muqhc.skyguifx.layout.SkyLayoutOption
@@ -22,17 +23,21 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
     }
 
     override fun render(display: SkyDisplay) {
+        onBeforeRender.handle(display)
         layoutManager.manage(this)
-        super.render(display)
+        renderFx(display)
         components.forEach {
             it.component.render(display)
         }
+        onAfterRender.handle(display)
     }
 
     override fun remove() {
+        onBeforeRemoved.handle()
         components.forEach { it.component.remove() }
         components.clear()
-        super.remove()
+        onRemoved()
+        onAfterRemoved.handle()
     }
 
     fun remove(component: SkyFXComponent) {
@@ -42,10 +47,12 @@ interface SkyContainer<O:SkyLayoutOption,L:SkyLayoutManager<O,L>>: SkyFXComponen
 
     override fun click(event: SkyDisplayInteractEvent) {
         if (isDisabled) return
-        super.click(event)
+        onBeforeClicked.handle(event)
+        clickDirect(event)
         components
             .filter { (compo,_) -> compo.isPointInReversed(event.traceResult.hitLocationOnDisplay) }
             .map { (compo,_) -> compo.click(event) }
+        onAfterClicked.handle(event)
     }
 }
 

@@ -16,17 +16,6 @@ import org.joml.Vector3f
  * A gui component based on block_display
  */
 open class SkyBoard: SkyEntityComponent<BlockDisplay,SkyBoard.BoardOption> {
-    override var parent: SkyFXComponent? = null
-    override var localPoint1: Point = Point(0,0)
-    override var localPoint2: Point = Point(0,0)
-    override var localFloatingLevel: Double = 0.0
-
-    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
-    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
-    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
-    override var isDisabled: Boolean = false
 
     class BoardOption(val blockData: BlockData): EntityOption
 
@@ -34,7 +23,7 @@ open class SkyBoard: SkyEntityComponent<BlockDisplay,SkyBoard.BoardOption> {
         prepare(BoardOption(blockData),display)
     }
 
-    override fun prepare(option: BoardOption, display: SkyDisplay) {
+    final override fun onPrepare(option: BoardOption, display: SkyDisplay) {
         entityLazy = LazyMutable {
             (display.location.world.spawnEntity(display.location, EntityType.BLOCK_DISPLAY) as BlockDisplay).apply {
                 block = option.blockData

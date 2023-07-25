@@ -8,19 +8,7 @@ import io.github.muqhc.skygui.util.Point
 /**
  * A button that can listen player interaction(click)
  */
-open class SkyButton(var onClicked: (SkyDisplayInteractEvent) -> Unit): SkyFXComponent {
-    override var parent: SkyFXComponent? = null
-    override var localPoint1: Point = Point(0,0)
-    override var localPoint2: Point = Point(0,0)
-    override var localFloatingLevel: Double = 0.0
-
-    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
-    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
-    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
-
-    override var isDisabled: Boolean = false
+open class SkyButton(var onClicked: (SkyDisplayInteractEvent) -> Unit): SimpleSkyFXComponent() {
 
     override fun renderFx(display: SkyDisplay) {}
 

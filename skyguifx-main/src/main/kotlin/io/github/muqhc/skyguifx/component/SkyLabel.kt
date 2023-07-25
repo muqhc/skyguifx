@@ -16,19 +16,6 @@ import org.joml.Vector3f
  * A gui component based on text_display
  */
 open class SkyLabel: SkyEntityComponent<TextDisplay,SkyLabel.LabelOption> {
-    override var parent: SkyFXComponent? = null
-    override var localPoint1: Point = Point(0,0)
-    override var localPoint2: Point = Point(0,0)
-    override var localFloatingLevel: Double = 0.0
-
-    override var onAfterRender: MutableList<(SkyDisplay)->Unit> = mutableListOf()
-    override var onAfterClicked: MutableList<(SkyDisplayInteractEvent)->Unit> = mutableListOf()
-    override var onAfterDisabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterEnabled: MutableList<()->Unit> = mutableListOf()
-    override var onAfterRemoved: MutableList<() -> Unit> = mutableListOf()
-
-    override var isDisabled: Boolean = false
-
 
     class LabelOption(val text: Component): EntityOption
 
@@ -39,7 +26,7 @@ open class SkyLabel: SkyEntityComponent<TextDisplay,SkyLabel.LabelOption> {
     constructor(text: String, display: SkyDisplay): this(Component.text(text),display)
 
 
-    final override fun prepare(option: LabelOption, display: SkyDisplay) {
+    final override fun onPrepare(option: LabelOption, display: SkyDisplay) {
         entityLazy = LazyMutable {
             (display.location.world.spawnEntity(display.location, EntityType.TEXT_DISPLAY) as TextDisplay).apply {
                 text(option.text)
