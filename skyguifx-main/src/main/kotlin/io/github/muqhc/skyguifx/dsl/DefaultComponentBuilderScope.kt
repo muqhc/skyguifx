@@ -27,7 +27,7 @@ open class EntityComponentConfigureScope<C:SkyEntityComponent<E,EO>,O:SkyLayoutO
 }
 
 open class ContainerConfigureScope<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>>(
-    compo: C, option: O, display: SkyDisplay
+    compo: C, option: O, display: SkyDisplay, val adder: ComponentAdder<OO,L> = ComponentAdder.Default()
 ): ComponentConfigureScope<C,O>(compo, option, display) {
     var defaultOption: OO
         get() = compo.layoutManager.defaultLayoutOption
@@ -39,7 +39,7 @@ open class ContainerConfigureScope<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sky
 
     fun <CC:SkyFXComponent> add(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ComponentConfigureScope<CC,OO>.() -> Unit): CC {
         ComponentConfigureScope(component,option,display).configure()
-        compo.add(component, option)
+        adder.add(compo, component, option)
         component.localFloatingLevel += additionalFloatingLevel
         return component
     }
@@ -47,7 +47,7 @@ open class ContainerConfigureScope<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sky
         ContainerConfigureScope(component,option,display)
             .also { it.additionalFloatingLevel = additionalFloatingLevel }
             .configure()
-        compo.add(component, option)
+        adder.add(compo, component, option)
         component.localFloatingLevel += additionalFloatingLevel
         return component
     }

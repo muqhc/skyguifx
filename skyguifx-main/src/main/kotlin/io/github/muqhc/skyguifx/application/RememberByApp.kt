@@ -2,7 +2,7 @@ package io.github.muqhc.skyguifx.application
 
 import kotlin.reflect.KProperty
 
-class RememberByApp<T>(val application: SkyApplication, val data: T) {
+class RememberByApp<T>(val application: SkyApplication<*>, val data: T) {
 
     var code: String? = null
 

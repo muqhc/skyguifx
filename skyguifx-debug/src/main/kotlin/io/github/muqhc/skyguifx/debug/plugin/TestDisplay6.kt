@@ -2,7 +2,7 @@ package io.github.muqhc.skyguifx.debug.plugin
 
 import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
-import io.github.muqhc.skyguifx.application.SkyFXComponentAPI
+import io.github.muqhc.skyguifx.application.SkyApplicationCloser
 import io.github.muqhc.skyguifx.component.SkyLabel
 import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.dsl.*
@@ -63,7 +63,7 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         }
                     }
 
-                    lateinit var appAPI: SkyFXComponentAPI
+                    lateinit var appAPI: SkyApplicationCloser
 
                     button(onClicked = {
                         if (!isOpened) appAPI = counterApp.show() else appAPI.close()
