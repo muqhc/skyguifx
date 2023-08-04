@@ -2,7 +2,7 @@ package io.github.muqhc.skyguifx.application
 
 import kotlin.reflect.KProperty
 
-class RememberByApp<T>(val application: SkyApplication<*>, val data: T) {
+class RememberByApp<T>(val application: SkyApplication<*>, val data: T, val namespace: String?) {
 
     var code: String? = null
 
@@ -31,7 +31,7 @@ class RememberByApp<T>(val application: SkyApplication<*>, val data: T) {
     fun generatePropCode(thisRef: Any?, property: KProperty<*>): String {
         val preHead = "{" + (thisRef?.javaClass?.simpleName ?: "null") + "}"
         val postHead = "[" + property::class.java.toGenericString() + "]"
-        val tail = "(" + property.name + ")"
+        val tail = "(" + namespace + "." + property.name + ")"
         return "$preHead.$postHead.$tail"
     }
 

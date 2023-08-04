@@ -20,8 +20,15 @@ open class SkyApplicationScopeInDsl<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sk
     val scope: ContainerConfigureScope<C,O,OO,L>,
     val ownerApplication: SkyApplication<OO>,
     val adderByAppScope: Adder<C,O,OO,L> = Adder(scope)
-): ContainerConfigureScope<C,O,OO,L>(scope.compo,scope.option,scope.display,adderByAppScope) {
-    fun <T> remember(data: T) = ownerApplication.remember(data)
+): ContainerConfigureScope<C,O,OO,L>(scope.compo,scope.option,scope.display,scope,adderByAppScope) {
+    init {
+        localNamespace = "application"
+    }
+
+    fun <T,TC:SkyFXComponent,TO:SkyLayoutOption> ComponentConfigureScope<TC,TO>.remember(
+        data: T, namespace: String? = this.namespace
+    ) =
+        ownerApplication.remember(data,namespace)
 
     class Adder<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>>(
         scope: ContainerConfigureScope<C,O,OO,L>

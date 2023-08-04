@@ -8,8 +8,10 @@ abstract class SkyApplication<O:SkyLayoutOption> {
 
     internal val dataContainer: MutableMap<String,MutableState<Any?>> = mutableMapOf()
 
-    fun <T> remember(data: T) =
-        RememberByApp(this,data)
+    val appId: String? = null
+
+    fun <T> remember(data: T, namespace: String? = appId) =
+        RememberByApp(this,data,namespace)
 
     open fun show(ownerComponent: SkyContainer<O,*>): SkyApplicationCloser {
         val containedList = entry(this)
