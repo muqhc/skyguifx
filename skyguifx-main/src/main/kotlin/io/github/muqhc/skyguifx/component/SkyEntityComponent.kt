@@ -6,7 +6,11 @@ import org.bukkit.entity.Entity
 
 abstract class SkyEntityComponent<E:Entity,EO:EntityOption> : SimpleSkyFXComponent() {
     protected lateinit var entityLazy: LazyMutable<E>
-    var entity by entityLazy
+    var entity: E
+        get() = entityLazy.getValue(this,::entity)
+        set(value) {
+            entityLazy.setValue(this,::entity,value)
+        }
 
     lateinit var entityOption: EO
         protected set

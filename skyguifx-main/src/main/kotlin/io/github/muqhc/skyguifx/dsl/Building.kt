@@ -13,7 +13,7 @@ class SkyGuiBuildingInstance<C:SkyContainer<O,L>,O:SkyLayoutOption,L:SkyLayoutMa
     val init: ContainerConfigureScope<C,SkyLayoutOption,O,L>.() -> Unit
 ) {
     fun build(display: SkyDisplay): C {
-        val scope = ContainerConfigureScope<C,SkyLayoutOption,O,L>(rootContainer,SkyPlainFieldOption(),display)
+        val scope = ContainerConfigureScope<C,SkyLayoutOption,O,L>(rootContainer,SkyPlainFieldOption(),display,null)
         scope.init()
         return rootContainer
     }
