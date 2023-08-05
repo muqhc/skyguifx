@@ -37,14 +37,16 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         aligningBox {
                             numLabel = label(Component.text(counter).color { 0x603B2A }) {
                                 compo.localFloatingLevel = 0.1
-                                compo.entity.backgroundColor = Color.fromARGB(0)
+                                entity { backgroundColor = Color.fromARGB(0) }
                                 compo.scale = Point(2, 2)
                             }
                         }
-                        button(onClicked = {
-                            counter += 1
-                            numLabel.entity.text(Component.text(counter).color { 0x603B2A })
-                        })
+                        button {
+                            compo.onClicked = {
+                                counter += 1
+                                numLabel.entity { text(Component.text(counter).color { 0x603B2A }) }
+                            }
+                        }
                     }
                 }
                 paddingBox {
@@ -59,7 +61,7 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                         compo.localFloatingLevel = 0.05
                         label = label(Component.text("open").color { 0x00FF00 }) {
                             option.alignment = Alignment.BottomCenter
-                            compo.entity.backgroundColor = Color.fromARGB(0)
+                            entity { backgroundColor = Color.fromARGB(0) }
                         }
                     }
 
@@ -68,10 +70,10 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                     button(onClicked = {
                         if (!isOpened) appAPI = counterApp.show() else appAPI.close()
                         if (!isOpened) {
-                            label.entity.text(Component.text("close").color { 0xFF0000 })
+                            label.entity { text(Component.text("close").color { 0xFF0000 }) }
                         }
                         else {
-                            label.entity.text(Component.text("open").color { 0x00FF00 })
+                            label.entity { text(Component.text("open").color { 0x00FF00 }) }
                         }
                         isOpened = !isOpened
                     })

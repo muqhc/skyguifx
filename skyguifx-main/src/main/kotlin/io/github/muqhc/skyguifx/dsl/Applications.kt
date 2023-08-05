@@ -37,7 +37,6 @@ open class SkyApplicationScopeInDsl<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sk
 
         override fun add(ownerContainer: SkyContainer<OO, L>, component: SkyFXComponent, option: OO) {
             controllingCompoList.add(SkyContained(component, option))
-            super.add(ownerContainer, component, option)
         }
     }
 }

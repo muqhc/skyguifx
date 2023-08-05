@@ -89,9 +89,11 @@ class TestDisplay2(
 
     fun update() {
         boardList.forEachIndexed { x,l -> l.forEachIndexed { y,it ->
-            it.value!!.entity.block =
-                if (booleanField[x][y].value) Material.RED_CONCRETE.createBlockData()
-                else Material.WHITE_CONCRETE.createBlockData()
+            it.value!!.entity {
+                block =
+                    if (booleanField[x][y].value) Material.RED_CONCRETE.createBlockData()
+                    else Material.WHITE_CONCRETE.createBlockData()
+            }
         } }
     }
 }

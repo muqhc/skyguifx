@@ -4,13 +4,13 @@ import io.github.muqhc.skyguifx.component.SkyContainer
 import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.layout.*
 
-fun <C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,OOO:SkyLayoutOption,L:SkyLayoutManager<OO,L>,LL:SkyLayoutManager<OOO,LL>
+fun <S:ContainerConfigureScope<SkyPanel<OOO,LL>,OO,OOO,LL>,C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,OOO:SkyLayoutOption,L:SkyLayoutManager<OO,L>,LL:SkyLayoutManager<OOO,LL>
     > ContainerConfigureScope<C,O,OO,L>.panel(
     layoutManager: LL,
     option: OO = this.compo.layoutManager.defaultLayoutOption.clone() as OO,
     configure: ContainerConfigureScope<SkyPanel<OOO,LL>,OO,OOO,LL>.() -> Unit = {}
 ): SkyPanel<OOO,LL> {
-    return addContainer(SkyPanel(layoutManager),option,configure)
+    return addContainer(ContainerConfigureScope(SkyPanel(layoutManager),option, display, this),configure)
 }
 
 fun <C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:SkyLayoutOption,L:SkyLayoutManager<OO,L>

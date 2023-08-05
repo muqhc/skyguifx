@@ -45,7 +45,7 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
 
                         val itemBoard = itemBoard(ItemStack(Material.AIR,0)) {
                             compo.localFloatingLevel = 0.03
-                            compo.entity.itemDisplayTransform = ItemDisplay.ItemDisplayTransform.GUI
+                            entity { itemDisplayTransform = ItemDisplay.ItemDisplayTransform.GUI }
                         }
                         lateinit var countLabel: SkyLabel
                         aligningBox {
@@ -53,7 +53,7 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
                                 option.alignment = Alignment.BottomRight
                                 option.width = itemBoard.width / 2
 
-                                compo.entity.backgroundColor = Color.fromARGB(0)
+                                entity { backgroundColor = Color.fromARGB(0) }
                                 compo.scale = Point(0.5,0.5)
                                 compo.localFloatingLevel = 0.04
                             }
@@ -62,58 +62,54 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
                             option.padding = 0.0
 
                             compo.onClicked = onClicked@ {
-                                if (it.hand != EquipmentSlot.HAND) return@onClicked
+                                itemBoard.entity {
+                                    if (it.hand != EquipmentSlot.HAND) return@entity
 
-                                val me = itemBoard.entity.itemStack?.clone()
-                                val you = it.player.inventory.itemInMainHand.clone()
+                                    val me = itemStack?.clone()
+                                    val you = it.player.inventory.itemInMainHand.clone()
 
-                                if (it.action == Action.LEFT_CLICK_AIR || it.action == Action.LEFT_CLICK_BLOCK) {
-                                    if (me != null && me.amount != 0 && me.type != Material.AIR) {
-                                        if (it.player.isSneaking) {
-                                            it.player.inventory.addItem(me)
-                                            itemBoard.entity.itemStack = null
-                                        } else {
-                                            it.player.inventory.addItem(me.asOne())
-                                            itemBoard.entity.apply {
+                                    if (it.action == Action.LEFT_CLICK_AIR || it.action == Action.LEFT_CLICK_BLOCK) {
+                                        if (me != null && me.amount != 0 && me.type != Material.AIR) {
+                                            if (it.player.isSneaking) {
+                                                it.player.inventory.addItem(me)
+                                                itemStack = null
+                                            } else {
+                                                it.player.inventory.addItem(me.asOne())
                                                 itemStack = itemStack!!.subtract(1)
                                             }
                                         }
                                     }
-                                }
 
-                                if (it.action == Action.RIGHT_CLICK_AIR || it.action == Action.RIGHT_CLICK_BLOCK) {
-                                    if (it.player.inventory.itemInMainHand.amount > 0) {
-                                        if (me == null || me.amount == 0 || me.type == Material.AIR) {
-                                            if (it.player.isSneaking) {
-                                                itemBoard.entity.itemStack = you
-                                                it.player.inventory.setItemInMainHand(null)
-                                            } else {
-                                                itemBoard.entity.itemStack = you.asOne()
-                                                it.player.inventory.itemInMainHand.subtract(1)
-                                            }
-                                        } else if (me.type == it.player.inventory.itemInMainHand.type) {
-                                            if (it.player.isSneaking) {
-                                                itemBoard.entity.apply {
+                                    if (it.action == Action.RIGHT_CLICK_AIR || it.action == Action.RIGHT_CLICK_BLOCK) {
+                                        if (it.player.inventory.itemInMainHand.amount > 0) {
+                                            if (me == null || me.amount == 0 || me.type == Material.AIR) {
+                                                if (it.player.isSneaking) {
+                                                    itemStack = you
+                                                    it.player.inventory.setItemInMainHand(null)
+                                                } else {
+                                                    itemStack = you.asOne()
+                                                    it.player.inventory.itemInMainHand.subtract(1)
+                                                }
+                                            } else if (me.type == it.player.inventory.itemInMainHand.type) {
+                                                if (it.player.isSneaking) {
                                                     itemStack = itemStack!!.add(you.amount)
-                                                }
-                                                it.player.inventory.setItemInMainHand(null)
-                                            } else {
-                                                itemBoard.entity.apply {
+                                                    it.player.inventory.setItemInMainHand(null)
+                                                } else {
                                                     itemStack = itemStack!!.add(1)
+                                                    it.player.inventory.itemInMainHand.subtract(1)
                                                 }
-                                                it.player.inventory.itemInMainHand.subtract(1)
                                             }
                                         }
                                     }
+
+                                    if (itemStack == null ||
+                                        itemStack!!.type == Material.AIR ||
+                                        itemStack!!.amount == 0
+                                    ) countLabel.entity { text(Component.text("")) }
+                                    else countLabel.entity { text(Component.text(itemStack!!.amount)) }
+
+                                    it.originEvent.isCancelled = true
                                 }
-
-                                if (itemBoard.entity.itemStack == null ||
-                                    itemBoard.entity.itemStack!!.type == Material.AIR ||
-                                    itemBoard.entity.itemStack!!.amount == 0
-                                ) countLabel.entity.text(Component.text(""))
-                                else countLabel.entity.text(Component.text(itemBoard.entity.itemStack!!.amount))
-
-                                it.originEvent.isCancelled = true
                             }
                         }
                     }

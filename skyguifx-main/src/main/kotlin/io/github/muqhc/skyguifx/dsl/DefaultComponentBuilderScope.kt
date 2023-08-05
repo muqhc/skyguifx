@@ -25,9 +25,7 @@ open class EntityComponentConfigureScope<C:SkyEntityComponent<E,EO>,O:SkyLayoutO
     compo: C, option: O, display: SkyDisplay, parentScope: ComponentConfigureScope<*,*>?
 ) : ComponentConfigureScope<C,O>(compo, option, display, parentScope) {
     fun entity(configure: E.() -> Unit) {
-        compo.onBeforeRender promise {
-            compo.entity.configure()
-        }
+        compo.entity { configure() }
     }
 }
 
@@ -43,18 +41,33 @@ open class ContainerConfigureScope<C:SkyContainer<OO,L>,O:SkyLayoutOption,OO:Sky
 
     var additionalFloatingLevel: Double = 0.03
 
-    fun <CC:SkyFXComponent> add(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ComponentConfigureScope<CC,OO>.() -> Unit): CC {
-        ComponentConfigureScope(component,option,display,this).configure()
-        adder.add(compo, component, option)
-        component.localFloatingLevel += additionalFloatingLevel
-        return component
+    fun <S:ComponentConfigureScope<CC,OO>,CC:SkyFXComponent> add(scope: S, configure: S.() -> Unit): CC {
+        scope.configure()
+        adder.add(compo, scope.compo, scope.option)
+        scope.compo.localFloatingLevel += additionalFloatingLevel
+        return scope.compo
     }
-    fun <CC:SkyContainer<OOO,LL>,OOO:SkyLayoutOption,LL:SkyLayoutManager<OOO,LL>> addContainer(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ContainerConfigureScope<CC,OO,OOO,LL>.() -> Unit): CC {
-        ContainerConfigureScope(component,option,display,this)
+    fun <S:ContainerConfigureScope<CC,OO,OOO,LL>,CC:SkyContainer<OOO,LL>,OOO:SkyLayoutOption,LL:SkyLayoutManager<OOO,LL>> addContainer(scope: S, configure: S.() -> Unit): CC {
+        scope
             .also { it.additionalFloatingLevel = additionalFloatingLevel }
             .configure()
-        adder.add(compo, component, option)
-        component.localFloatingLevel += additionalFloatingLevel
-        return component
+        adder.add(compo, scope.compo, scope.option)
+        scope.compo.localFloatingLevel += additionalFloatingLevel
+        return scope.compo
     }
+
+//    fun <CC:SkyFXComponent> add(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ComponentConfigureScope<CC,OO>.() -> Unit): CC {
+//        ComponentConfigureScope(component,option,display,this).configure()
+//        adder.add(compo, component, option)
+//        component.localFloatingLevel += additionalFloatingLevel
+//        return component
+//    }
+//    fun <CC:SkyContainer<OOO,LL>,OOO:SkyLayoutOption,LL:SkyLayoutManager<OOO,LL>> addContainer(component: CC, option: OO = compo.layoutManager.defaultLayoutOption.clone() as OO, configure: ContainerConfigureScope<CC,OO,OOO,LL>.() -> Unit): CC {
+//        ContainerConfigureScope(component,option,display,this)
+//            .also { it.additionalFloatingLevel = additionalFloatingLevel }
+//            .configure()
+//        adder.add(compo, component, option)
+//        component.localFloatingLevel += additionalFloatingLevel
+//        return component
+//    }
 }

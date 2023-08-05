@@ -2,11 +2,12 @@ package io.github.muqhc.skyguifx.component
 
 import io.github.muqhc.skygui.SkyDisplay
 import io.github.muqhc.skyguifx.util.LazyMutable
+import io.github.muqhc.skyguifx.util.promise
 import org.bukkit.entity.Entity
 
 abstract class SkyEntityComponent<E:Entity,EO:EntityOption> : SimpleSkyFXComponent() {
     protected lateinit var entityLazy: LazyMutable<E>
-    var entity: E
+    protected var entity: E
         get() = entityLazy.getValue(this,::entity)
         set(value) {
             entityLazy.setValue(this,::entity,value)
@@ -20,6 +21,12 @@ abstract class SkyEntityComponent<E:Entity,EO:EntityOption> : SimpleSkyFXCompone
         onPrepare(option, display)
     }
     abstract fun onPrepare(option: EO, display: SkyDisplay)
+
+    fun entity(configure: E.() -> Unit) {
+        onBeforeRender promise {
+            entity.configure()
+        }
+    }
 }
 
 interface EntityOption

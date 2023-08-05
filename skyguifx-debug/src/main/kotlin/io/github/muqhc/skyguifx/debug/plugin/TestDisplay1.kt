@@ -26,7 +26,7 @@ class TestDisplay1(location: Location, normalVector: Vector) : SkyFXSimpleDispla
                 label(Component.text("hello world!").color { 0x603B2A }) {
                     option.alignment = Alignment.BottomCenter
 
-                    compo.entity.backgroundColor = Color.fromARGB(0)
+                    entity { backgroundColor = Color.fromARGB(0) }
                     compo.scale = Point(2.2,2.3)
                 }
             }
