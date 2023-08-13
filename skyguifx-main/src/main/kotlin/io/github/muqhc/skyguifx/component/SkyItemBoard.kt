@@ -19,7 +19,7 @@ import org.joml.Vector3f
  */
 open class SkyItemBoard: SkyEntityComponent<ItemDisplay,SkyItemBoard.ItemBoardOption> {
 
-    class ItemBoardOption(val itemStack: ItemStack?): EntityOption
+    data class ItemBoardOption(val itemStack: ItemStack?): EntityOption
 
     constructor(itemStack: ItemStack?, display: SkyDisplay): super() {
         prepare(ItemBoardOption(itemStack),display)

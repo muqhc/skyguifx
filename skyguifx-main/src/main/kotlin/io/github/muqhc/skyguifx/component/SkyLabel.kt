@@ -17,7 +17,7 @@ import org.joml.Vector3f
  */
 open class SkyLabel: SkyEntityComponent<TextDisplay,SkyLabel.LabelOption> {
 
-    class LabelOption(val text: Component): EntityOption
+    data class LabelOption(val text: Component): EntityOption
 
     constructor(text: Component, display: SkyDisplay): super() {
         prepare(LabelOption(text),display)
