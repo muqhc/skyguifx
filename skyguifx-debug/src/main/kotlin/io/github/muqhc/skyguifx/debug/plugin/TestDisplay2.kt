@@ -3,9 +3,7 @@ package io.github.muqhc.skyguifx.debug.plugin
 import io.github.muqhc.skygui.util.Point
 import io.github.muqhc.skyguifx.SkyFXSimpleDisplay
 import io.github.muqhc.skyguifx.component.SkyBoard
-import io.github.muqhc.skyguifx.component.SkyPanel
 import io.github.muqhc.skyguifx.dsl.*
-import io.github.muqhc.skyguifx.layout.SkyPaddingBoxLayout
 import io.github.muqhc.skyguifx.util.IntPoint
 import io.github.muqhc.skyguifx.util.plus
 import org.bukkit.Location
@@ -40,38 +38,40 @@ class TestDisplay2(
 
     init {
 
-        add(gameComponentBuilder(windowSize,windowPos).build(this))
+        add(gameComponent(windowSize,windowPos))
 
     }
 
 
-    fun gameComponentBuilder(
+    fun gameComponent(
         windowSize: Point,
         windowPos: Point = Point(0,0),
     ) =
-        SkyPanel(SkyPaddingBoxLayout()).skygui {
+        buildSkyPanel {
             compo.localPoint1 = windowPos
             compo.localPoint2 = windowPos + windowSize
 
-            simpleGridField(gameSize.y,gameSize.x) {
-                booleanField.mapIndexed { x,l -> l.mapIndexed { y,_ ->
+            simpleGridField(gameSize.y, gameSize.x) {
+                booleanField.mapIndexed { x, l ->
+                    l.mapIndexed { y, _ ->
 
-                    paddingBox {
-                        defaultOption.padding = 0.1
+                        paddingBox {
+                            defaultOption.padding = 0.1
 
-                        option.gridPoint1 = IntPoint(x,y)
-                        option.gridPoint2 = IntPoint(x+1,y+1)
+                            option.gridPoint1 = IntPoint(x, y)
+                            option.gridPoint2 = IntPoint(x + 1, y + 1)
 
 
-                        boardList[x][y].value = board(Material.WHITE_CONCRETE.createBlockData())
+                            boardList[x][y].value = board(Material.WHITE_CONCRETE.createBlockData())
 
-                        button(onClicked = {
-                            it.player.sendMessage("You clicked! ${IntPoint(x,y)}")
-                            gameButtonClick(IntPoint(x,y))
-                        })
+                            button(onClicked = {
+                                it.player.sendMessage("You clicked! ${IntPoint(x, y)}")
+                                gameButtonClick(IntPoint(x, y))
+                            })
+                        }
+
                     }
-
-                } }
+                }
             }
         }
 

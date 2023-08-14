@@ -29,8 +29,7 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
     }
 
     fun app() =
-        SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
-            compo.localPoint2 = Point(size.x,size.y)*0.4
+        buildSkyPanel(Point(size.x,size.y)*0.4) {
 
             board(Material.LIGHT_GRAY_CONCRETE.createBlockData())
             simpleGridField(size.y,size.x) {

@@ -18,8 +18,7 @@ class TestDisplay1(location: Location, normalVector: Vector) : SkyFXSimpleDispla
     }
 
     fun app() =
-        SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
-            compo.localPoint2 = Point(2.7,0.7)
+        buildSkyPanel(2.7,0.7) {
 
             board(Material.BIRCH_PLANKS.createBlockData())
             aligningBox {

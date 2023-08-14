@@ -21,8 +21,7 @@ class TestDisplay6(location: Location, normalVector: Vector) : SkyFXSimpleDispla
     }
 
     fun app() =
-        SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
-            compo.localPoint2 = Point(2,2)
+        buildSkyPanel(2.0,2.0) {
             additionalFloatingLevel = 0.0
             simpleGridField(10,2) {
                 val counterApp = application {

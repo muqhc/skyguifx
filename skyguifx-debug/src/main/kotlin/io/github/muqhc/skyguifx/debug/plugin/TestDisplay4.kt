@@ -22,9 +22,7 @@ class TestDisplay4(location: Location, normalVector: Vector): SkyFXSimpleDisplay
     }
 
     fun app() =
-        SkyPanel(SkyPaddingBoxLayout()).skyguiBuild(this) {
-            compo.localPoint2 = Point(2,2)
-
+        buildSkyPanel(2.0,2.0) {
             var count: Int = 0
             lateinit var label: SkyLabel
 
