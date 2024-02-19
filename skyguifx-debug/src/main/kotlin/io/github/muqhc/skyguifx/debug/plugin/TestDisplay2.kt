@@ -8,6 +8,7 @@ import io.github.muqhc.skyguifx.util.IntPoint
 import io.github.muqhc.skyguifx.util.plus
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.util.Vector
 
 /**
@@ -67,6 +68,25 @@ class TestDisplay2(
                             button(onClicked = {
                                 it.player.sendMessage("You clicked! ${IntPoint(x, y)}")
                                 gameButtonClick(IntPoint(x, y))
+                                if (
+                                    booleanField.any { it.any { it.value } } &&
+                                    booleanField.any { it.any { !it.value } }
+                                    ) {
+                                    it.player.playSound(
+                                        it.player.location,
+                                        Sound.BLOCK_NOTE_BLOCK_BIT,
+                                        10f,
+                                        1f
+                                    )
+                                }
+                                else {
+                                    it.player.playSound(
+                                        it.player.location,
+                                        Sound.BLOCK_BELL_RESONATE,
+                                        10f,
+                                        1f
+                                    )
+                                }
                             })
                         }
 
