@@ -82,9 +82,9 @@ class TestDisplay2(
                                 else {
                                     it.player.playSound(
                                         it.player.location,
-                                        Sound.BLOCK_BELL_RESONATE,
+                                        Sound.BLOCK_NOTE_BLOCK_BIT,
                                         10f,
-                                        1f
+                                        2f
                                     )
                                 }
                             })
