@@ -1,12 +1,13 @@
 package io.github.muqhc.skyguifx.application
 
+import io.github.muqhc.skyguifx.util.Prop
 import kotlin.reflect.KProperty
 
-class RememberByApp<T>(val application: SkyApplication<*>, val data: T, val namespace: String?) {
+class RememberByApp<T>(val application: SkyApplication<*>, val data: T, val namespace: String?): Prop<T>{
 
     var code: String? = null
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+    override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         if (code == null) {
             code = generatePropCode(thisRef, property)
         }
@@ -16,7 +17,7 @@ class RememberByApp<T>(val application: SkyApplication<*>, val data: T, val name
         else remembered.data as T
     }
 
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+    override operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (code == null) {
             code = generatePropCode(thisRef, property)
         }
