@@ -95,7 +95,7 @@ class TestDisplay7(location: Location, normalVector: Vector, val size: IntPoint 
                         }
                         lateinit var countLabel: SkyLabel
                         aligningBox {
-                            countLabel = label(Component.text("")) {
+                            countLabel = label(Component.text(itemStack?.amount?.toString() ?: "")) {
                                 option.alignment = Alignment.BottomRight
                                 option.width = itemBoard.width / 2
 
@@ -108,6 +108,7 @@ class TestDisplay7(location: Location, normalVector: Vector, val size: IntPoint 
                             option.padding = 0.0
 
                             compo.onClicked = onClicked@{
+                                it.originEvent.isCancelled = true
                                 itemBoard.entity {
                                     if (it.hand != EquipmentSlot.HAND) return@entity
 
@@ -154,7 +155,6 @@ class TestDisplay7(location: Location, normalVector: Vector, val size: IntPoint 
                                     ) countLabel.entity { text(Component.text("")) }
                                     else countLabel.entity { text(Component.text(itemStack!!.amount)) }
 
-                                    it.originEvent.isCancelled = true
                                 }
                             }
                         }

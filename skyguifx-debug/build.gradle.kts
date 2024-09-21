@@ -7,7 +7,7 @@ val projectMain = project(":${rootProject.name}-main")
 
 dependencies {
     implementation(projectMain)
-    implementation("io.github.monun:kommand-api:3.1.6")
+    compileOnly("xyz.icetang.lib:icemmand-api:1.21.1+1.0.0")
 }
 
 val pluginName = rootProject.name.split('-').joinToString("") { it.capitalize() }

@@ -71,10 +71,10 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
                                         if (me != null && me.amount != 0 && me.type != Material.AIR) {
                                             if (it.player.isSneaking) {
                                                 it.player.inventory.addItem(me)
-                                                itemStack = null
+                                                setItemStack(null)
                                             } else {
                                                 it.player.inventory.addItem(me.asOne())
-                                                itemStack = itemStack!!.subtract(1)
+                                                setItemStack(itemStack!!.subtract(1))
                                             }
                                         }
                                     }
@@ -83,18 +83,18 @@ class TestDisplay5(location: Location, normalVector: Vector, val size: IntPoint 
                                         if (it.player.inventory.itemInMainHand.amount > 0) {
                                             if (me == null || me.amount == 0 || me.type == Material.AIR) {
                                                 if (it.player.isSneaking) {
-                                                    itemStack = you
+                                                    setItemStack(you)
                                                     it.player.inventory.setItemInMainHand(null)
                                                 } else {
-                                                    itemStack = you.asOne()
+                                                    setItemStack(you.asOne())
                                                     it.player.inventory.itemInMainHand.subtract(1)
                                                 }
                                             } else if (me.type == it.player.inventory.itemInMainHand.type) {
                                                 if (it.player.isSneaking) {
-                                                    itemStack = itemStack!!.add(you.amount)
+                                                    setItemStack(itemStack!!.add(you.amount))
                                                     it.player.inventory.setItemInMainHand(null)
                                                 } else {
-                                                    itemStack = itemStack!!.add(1)
+                                                    setItemStack(itemStack!!.add(1))
                                                     it.player.inventory.itemInMainHand.subtract(1)
                                                 }
                                             }

@@ -1,7 +1,7 @@
 package io.github.muqhc.skyguifx.debug.plugin
 
-import io.github.monun.kommand.getValue
-import io.github.monun.kommand.kommand
+import xyz.icetang.lib.icemmand.getValue
+import xyz.icetang.lib.icemmand.icemmand
 import io.github.muqhc.skygui.component.SkyComponent
 import io.github.muqhc.skygui.manager.SimpleSkyguiManager
 import io.github.muqhc.skygui.util.Point
@@ -23,7 +23,7 @@ class SkyguifxDebugPlugin: JavaPlugin() {
 
     override fun onEnable() {
 
-        kommand {
+        icemmand {
             register("skyguifx_debug") {
                 then("restart_gui") {
                     executes {
@@ -143,6 +143,16 @@ class SkyguifxDebugPlugin: JavaPlugin() {
                     executes {
                         myGuiManager.displays +=
                             TestDisplay6(
+                                player.location.clone(), player.location.direction.normalize().multiply(-1)
+                            )
+                    }
+                }
+
+                then("test7_application") {
+                    requires { isPlayer && isOp }
+                    executes {
+                        myGuiManager.displays +=
+                            TestDisplay7(
                                 player.location.clone(), player.location.direction.normalize().multiply(-1)
                             )
                     }

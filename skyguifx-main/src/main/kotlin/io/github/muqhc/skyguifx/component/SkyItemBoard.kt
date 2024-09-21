@@ -28,7 +28,7 @@ open class SkyItemBoard: SkyEntityComponent<ItemDisplay,SkyItemBoard.ItemBoardOp
     final override fun onPrepare(option: ItemBoardOption, display: SkyDisplay) {
         entityLazy = LazyMutable {
             (display.location.world.spawnEntity(display.location, EntityType.ITEM_DISPLAY) as ItemDisplay).apply {
-                this.itemStack = option.itemStack
+                this.setItemStack(option.itemStack)
             }
         }
     }
